@@ -72,6 +72,6 @@ def init():
     
     
     global mask_height
-    mask_height = None
+    mask_height = 50
     global mask_width 
-    mask_width = None
+    mask_width = 60
