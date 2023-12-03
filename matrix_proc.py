@@ -1,8 +1,11 @@
 #Module function: provide the function to generate and process the position matrix. The disc positions in the sticks are managed like a matrix.
-#Functions: get_detected_matrix, bot in char and numbers. 
+#Functions: get_detected_matrix, bot in char and numbers. Compare_matrix: compares the theorical (from global variables in settingsHD.py) and the detected matrix, returns a boolean  
 
 
 import numpy as np
+
+#my custom modules imports
+import settingsHD as glb #this import all the global variables
 
 #------------------------------------------------------------------------------------
 #This function detemines the detected matrix (the actual matrix that is 'seen' by the camera). The detected matrix is really the disc position.
@@ -49,3 +52,11 @@ def get_detected_matrix_num(sort_dict):
                 detection_matrix[j][n] = 3
                     
     return detection_matrix     
+
+
+
+def compare_matrix (detected_matrix, state):
+    hanoi_mat= glb.hanoi_matrix_char[(3*state):(3*(state+1)), :] #this is the theorical correct matrix
+    flip_detected_matrix_char = np.fliplr(detected_matrix) #need to flip to adjust user/robot perspective
+    matrices_are_equal = (flip_detected_matrix_char == hanoi_mat).all()
+    return matrices_are_equal
