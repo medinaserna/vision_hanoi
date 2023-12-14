@@ -123,8 +123,6 @@ def detect_color(image_hsv):
     #red=cv2.bitwise_and(image2,image2,mask=r_mask)    #this is optional, only for visualization
 
 
-   # g_mask=cv2.inRange(image_hsv,L_limit_green,U_limit_green)
-    #green=cv2.bitwise_and(image2,image2, mask=g_mask)  #this is optional, only for visualization
 
     y_mask=cv2.inRange(image_hsv,L_limit_yellow,U_limit_yellow)
     #yellow=cv2.bitwise_and(image2,image2, mask=y_mask)  #this is optional, only for visualization
@@ -132,24 +130,21 @@ def detect_color(image_hsv):
     #convert the mask from the 255 values to 1, i think more easy to count pixels.
     b_mask = b_mask/255
     r_mask = r_mask/255
-    #g_mask = g_mask/255
     y_mask = y_mask/255
+    
     b_pixels_total = b_mask.sum()
     r_pixels_total = r_mask.sum()
-    #g_pixels_total = g_mask.sum()
     y_pixels_total = y_mask.sum()
 
     #if I have a certain threshold value of pixels, I could determine that I have a disc of that specific value.
-    if b_pixels_total > 150:
+    if b_pixels_total > 175:
         b_disc_flag = True
 
-    if r_pixels_total > 150:
+    if r_pixels_total > 175:
         r_disc_flag = True
+   
 
-    #if g_pixels_total > 50:
-     #   g_disc_flag = True    
-
-    if y_pixels_total > 150:
+    if y_pixels_total > 175:
         y_disc_flag = True    
         
 #then, if I have a flag for a specific disc, I must search its position in the mask, from top to down.
